@@ -37,9 +37,8 @@ public class ProposalResource {
 	@POST
 	public Response createProposal(ProposalDetailsDTO proposal) {
 		try {
-			LOGGER.info("---- Cirando nova proposta de Compra ----");
-			service.creatProposal(proposal);
-			return Response.ok().build();
+			LOGGER.info("---- Criando nova proposta de Compra ----");
+			return Response.ok(service.creatProposal(proposal)).build();
 		} catch(Exception e) {
 			LOGGER.log(Level.SEVERE, "[createProposal]", e);
 			return Response.serverError().build();

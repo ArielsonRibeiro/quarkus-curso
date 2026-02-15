@@ -32,7 +32,7 @@ public class QuotationService {
 
 	private static final String PAIR_USD_BRL = "USD-BRL";
 	
-	private static final BigDecimal DIFERENCA_SALVAR_EM_BANCO = new BigDecimal("0.05");
+	private static final BigDecimal DIFERENCA_SALVAR_EM_BANCO = new BigDecimal("0.02");
 	
 	private final Logger LOGGER = Logger.getLogger(QuotationService.class.getName());
 
@@ -59,13 +59,14 @@ public class QuotationService {
 		BigDecimal currencyValue = new BigDecimal(currentPriceInfo.getUsdbrl().getBid());
 		boolean update = false;
 		
-		List<CotacaoEnitity> quotations = repository.findAll().list();
-		if(quotations.isEmpty()) {
+		CotacaoEnitity quotation = repository.find("ORDER BY id DESC LIMIT 1").firstResult();
+		//List<CotacaoEnitity> quotations = repository.findAll().list();
+		if(quotation == null) {
 			saveQuotation(currentPriceInfo);
 			update = true;
 		} else {
 			
-			BigDecimal lastValue = quotations.get(quotations.size() - 1).getCurrencyPrice();
+			BigDecimal lastValue = quotation.getCurrencyPrice();
 			BigDecimal dif = lastValue.subtract(currencyValue);
 			
 			// só atualiza se a cotação for maior

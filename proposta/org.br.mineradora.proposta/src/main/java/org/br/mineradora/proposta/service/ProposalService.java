@@ -6,5 +6,5 @@ public interface ProposalService {
 
 	public ProposalDetailsDTO findFullProposal(long id);
 	public void removeProposal(long id);
-	public void creatProposal(ProposalDetailsDTO proposal);
+	public long creatProposal(ProposalDetailsDTO proposal);
 }
