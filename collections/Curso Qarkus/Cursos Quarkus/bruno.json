@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "Curso Qarkus",
+  "name": "Cursos Quarkus",
   "type": "collection",
   "ignore": [
     "node_modules",

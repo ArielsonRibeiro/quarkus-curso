@@ -1,0 +1,32 @@
+meta {
+  name: Cadastrar Proposta
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host_proposta}}/api/proposal
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+  
+    "customer": "América Minerio",
+    
+    "priceTonne":135.0,
+    
+    "tonnes" : 100,
+    
+    "country":"JPN",
+    
+    "proposalValidDays": 5
+    
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
