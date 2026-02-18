@@ -7,6 +7,7 @@ import org.br.mineradora.proposta.dto.ProposalDetailsDTO;
 import org.br.mineradora.proposta.service.ProposalService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.security.Authenticated;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
