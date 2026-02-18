@@ -57,8 +57,14 @@ public class OpportunityServiceImpl implements OpportunityService {
 
 	@Override
 	public List<OpportunityDTO> generateOpportunitiesData() {
-		// TODO Auto-generated method stub
-		return null;
+		return opportunityRepository.findAll().stream().map(this::fill).toList();
+	}
+
+	private OpportunityDTO fill(OpportunityEntity o) {
+		return OpportunityDTO.builder().customer(o.getCustomer())
+				.lastDollarQuotation(o.getLastDollarQuotation())
+				.priceTonne(o.getPriceTonne())
+				.proposalId(o.getProposalId()).build();
 	}
 
 	@Override
@@ -66,11 +72,7 @@ public class OpportunityServiceImpl implements OpportunityService {
 		List<OpportunityDTO> lista = new ArrayList<>();
 		
 		opportunityRepository.findAll().list().forEach(o -> {
-			OpportunityDTO opp = OpportunityDTO.builder().customer(o.getCustomer())
-			.lastDollarQuotation(o.getLastDollarQuotation())
-			.priceTonne(o.getPriceTonne())
-			.proposalId(o.getProposalId()).build();
-			lista.add(opp);
+			lista.add(fill(o));
 		} );
 		
 		return CSVHelper.OpportunitiesToCSV(lista);
