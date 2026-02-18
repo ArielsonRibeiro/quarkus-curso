@@ -1,28 +1,26 @@
 meta {
   name: Cadastrar Proposta
   type: http
-  seq: 1
+  seq: 3
 }
 
 post {
-  url: {{host_proposta}}/api/proposal
+  url: {{host_gateway}}/api/trade
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authTokenMiner}}
 }
 
 body:json {
   {
-  
     "customer": "América Minerio",
-    
-    "priceTonne":135.0,
-    
-    "tonnes" : 100,
-    
-    "country":"JPN",
-    
-    "proposalValidDays": 5
-    
+    "priceTonne": 135.0,
+    "tonnes": 200,
+    "country": "CHN",
+    "proposalValidDays": 7
   }
 }
 

@@ -1,13 +1,17 @@
 meta {
-  name: Remover Proposta
+  name: relatorio csv
   type: http
-  seq: 6
+  seq: 8
 }
 
-delete {
-  url: {{host_proposta}}/api/proposal/1
+get {
+  url: {{host_gateway}}/api/opportunity/report
   body: none
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
 }
 
 body:json {

@@ -1,13 +1,17 @@
 meta {
   name: Consultar Proposta
   type: http
-  seq: 3
+  seq: 5
 }
 
 get {
-  url: {{host_proposta}}/api/proposal/1
+  url: {{host_proposta}}/api/proposal/21
   body: none
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
 }
 
 body:json {
