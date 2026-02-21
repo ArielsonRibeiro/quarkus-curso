@@ -1,0 +1,45 @@
+package org.br.mineradoria.gateway.rs;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.security.auth.login.LoginException;
+
+import org.br.mineradoria.gateway.client.OAuthClient;
+import org.br.mineradoria.gateway.dto.TokenOAuthDTO;
+import org.br.mineradoria.gateway.exception.HandlingCustomException;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import jakarta.annotation.security.PermitAll;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+
+@Path("/api/v1/oauth")
+@PermitAll
+public class AuthenticationResource {
+	
+	private final Logger LOGGER = Logger.getLogger(AuthenticationResource.class.getName());
+
+	@Inject
+	@RestClient
+	private OAuthClient oauth;
+
+	@Path("/token")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public TokenOAuthDTO autenticar(@FormParam("username") String username, @FormParam("password") String password,
+			@FormParam("grant_type") String grantType) {
+		try {
+			return oauth.login(username, password, grantType);
+		} catch (LoginException e) {
+			throw HandlingCustomException.throwException(401, e);
+		} catch(Exception e) {
+			LOGGER.log(Level.WARNING, e.getMessage(), e);
+			throw HandlingCustomException.throwException(400, e);
+		}
+	}
+}
