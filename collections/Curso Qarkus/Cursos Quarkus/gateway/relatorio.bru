@@ -1,0 +1,36 @@
+meta {
+  name: relatorio
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{host_gateway}}/api/opportunity/report/data
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+body:json {
+  {
+  
+    "customer": "América Minerio",
+    
+    "priceTonne":135.0,
+    
+    "tonnes" : 100,
+    
+    "country":"JPN",
+    
+    "proposalValidDays": 5
+    
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

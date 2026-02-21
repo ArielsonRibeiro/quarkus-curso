@@ -20,7 +20,7 @@ services:
       - "9002:8080"
   br-mineradora-bff:
     image: quarkus/org.br.mineradora.gateway-bff-jvm
-    hostname: br-mineradora-report
+    hostname: br-mineradora-gateway
     ports:
       - "9003:8080"
     depends_on:

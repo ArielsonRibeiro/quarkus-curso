@@ -1,0 +1,17 @@
+
+name: keycloak
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    command: start-dev # Use 'start' in production
+    environment:
+      # ... other environment variables
+      - KEYCLOAK_HOSTNAME_STRICT=false # Allow other hostnames (e.g., internal ones)
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      # ...
+    ports:
+      - "8081:8080"
+
+#Precisa Definir um Frontend URL Fixo -> Vá em Realm Settings > General. -> No campo Frontend URL, coloque a URL pública (URL X).
+# (Dessa forma, mesmo que a validação ocorra internamente, o token dirá que o emissor é a URL X.)

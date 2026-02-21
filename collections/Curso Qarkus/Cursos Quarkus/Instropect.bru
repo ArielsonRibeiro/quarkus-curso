@@ -1,0 +1,29 @@
+meta {
+  name: Instropect
+  type: http
+  seq: 11
+}
+
+post {
+  url: http://localhost:8081/realms/quarkus/protocol/openid-connect/token/introspect
+  body: formUrlEncoded
+  auth: basic
+}
+
+auth:basic {
+  username: backend-service
+  password: secret
+}
+
+body:json {
+  {}
+}
+
+body:form-urlencoded {
+  token: {{authTokenMiner}}
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

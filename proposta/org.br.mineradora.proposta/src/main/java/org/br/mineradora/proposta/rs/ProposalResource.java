@@ -8,9 +8,6 @@ import org.br.mineradora.proposta.service.ProposalService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import jakarta.annotation.security.RolesAllowed;
-port org.eclipse.microprofile.jwt.JsonWebToken;
-
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
