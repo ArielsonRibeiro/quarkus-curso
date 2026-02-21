@@ -1,11 +1,11 @@
 meta {
-  name: Login Mineradora
+  name: Login Mineradora Gateway
   type: http
-  seq: 2
+  seq: 10
 }
 
 post {
-  url: http://localhost:8081/realms/quarkus/protocol/openid-connect/token
+  url: http://localhost:8080/api/v1/oauth/token
   body: formUrlEncoded
   auth: basic
 }
@@ -16,7 +16,7 @@ auth:basic {
 }
 
 body:form-urlencoded {
-  username: china.miner1
+  username: china.miner
   password: 1234
   grant_type: password
 }

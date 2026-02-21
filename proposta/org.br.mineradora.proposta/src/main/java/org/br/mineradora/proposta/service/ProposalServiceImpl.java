@@ -47,29 +47,38 @@ public class ProposalServiceImpl implements ProposalService {
 		proposal.setProposalId(null);
 		ProposalEntity entity = fill(proposal);
 		proposalRespository.persist(entity);
-		return ProposalDTO.builder()
-				.customer(entity.getCustomer())
-				.priceTonner(entity.getPriceTonne())
-				.proposalId(entity.getId())
-				.build();
+		
+		var result = new ProposalDTO();
+		result.setCustomer(entity.getCustomer());
+		result.setPriceTonner(entity.getPriceTonne());
+		result.setProposalId(entity.getId());
+		
+		return result;
 		
 	}
 	
 	private ProposalEntity fill(ProposalDetailsDTO proposal) {
-		return ProposalEntity.builder()
-					.id(proposal.getProposalId())
-					.country(proposal.getCountry())
-					.customer(proposal.getCustomer())
-					.priceTonne(proposal.getPriceTonne())
-					.proposalValidDays(proposal.getProposalValidDays())
-					.created(new Date())
-					.tonnes(proposal.getTonnes()).build();
+		var result = new ProposalEntity();
+		result.setId(proposal.getProposalId());
+		result.setCountry(proposal.getCountry());
+		result.setCustomer(proposal.getCustomer());
+		result.setPriceTonne(proposal.getPriceTonne());
+		result.setProposalValidDays(proposal.getProposalValidDays());
+		result.setCreated(new Date());
+		result.setTonnes(proposal.getTonnes());
+		return result;
+		
 	}
 
 	private ProposalDetailsDTO fill(ProposalEntity proposal) {
-		return ProposalDetailsDTO.builder().country(proposal.getCountry()).customer(proposal.getCustomer())
-				.priceTonne(proposal.getPriceTonne()).proposalId(proposal.getId())
-				.proposalValidDays(proposal.getProposalValidDays()).tonnes(proposal.getTonnes()).build();
+		var result = new ProposalDetailsDTO();
+		result.setCountry(proposal.getCountry());
+		result.setCustomer(proposal.getCustomer());
+		result.setPriceTonne(proposal.getPriceTonne());
+		result.setProposalId(proposal.getId());
+		result.setProposalValidDays(proposal.getProposalValidDays());
+		result.setTonnes(proposal.getTonnes());
+		return result;
 
 	}
 

@@ -7,8 +7,9 @@ import org.br.mineradora.proposta.dto.ProposalDetailsDTO;
 import org.br.mineradora.proposta.service.ProposalService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
-import io.opentelemetry.instrumentation.annotations.WithSpan;
-import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.RolesAllowed;
+port org.eclipse.microprofile.jwt.JsonWebToken;
+
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
@@ -19,7 +20,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.Response;
 
 @Path("/api/proposal")
-@Authenticated
 public class ProposalResource {
 
 	private final Logger LOGGER = Logger.getLogger(ProposalResource.class.getName());
@@ -45,7 +45,7 @@ public class ProposalResource {
 	}
 	
 	@POST
-	@RolesAllowed("proposal-customer")
+//	@RolesAllowed("proposal-customer")
 	public Response createProposal(ProposalDetailsDTO proposal) {
 		try {
 			LOGGER.info("---- Criando nova proposta de Compra ----");

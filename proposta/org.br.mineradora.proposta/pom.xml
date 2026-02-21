@@ -73,15 +73,7 @@
 		    <groupId>io.quarkus</groupId>
 		    <artifactId>quarkus-opentelemetry</artifactId>
 		</dependency>
-		        
-		<!-- Source: https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.42</version>
-			<scope>compile</scope>
-		</dependency>
-        
+		       
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit</artifactId>

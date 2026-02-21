@@ -1,0 +1,28 @@
+# Go to http://localhost:8080 when started
+
+####################################################################################################
+# DO NOT USE IT IN PRODUCTION
+####################################################################################################
+
+name: br-mineradora
+services:
+  br-mineradora-cotacao:
+    image: quarkus/org.br.mineradora.cotacao-jvm
+  br-mineradora-proposal:
+    image: quarkus/org.br.mineradora.proposta-jvm
+    hostname: br-mineradora-proposal
+    ports:
+      - "9001:8080"
+  br-mineradora-report:
+    image: quarkus/org.br.mineradora.report-jvm
+    hostname: br-mineradora-report
+    ports:
+      - "9002:8080"
+  br-mineradora-bff:
+    image: quarkus/org.br.mineradora.gateway-bff-jvm
+    hostname: br-mineradora-report
+    ports:
+      - "9003:8080"
+    depends_on:
+      - br-mineradora-report
+      - br-mineradora-proposal
