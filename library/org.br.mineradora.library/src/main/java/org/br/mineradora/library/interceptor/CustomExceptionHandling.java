@@ -1,4 +1,4 @@
-package org.br.mineradoria.gateway.interceptor;
+package org.br.mineradora.library.interceptor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

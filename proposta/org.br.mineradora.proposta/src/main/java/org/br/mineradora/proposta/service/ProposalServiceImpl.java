@@ -1,6 +1,7 @@
 package org.br.mineradora.proposta.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.br.mineradora.proposta.dto.ProposalDTO;
 import org.br.mineradora.proposta.dto.ProposalDetailsDTO;
@@ -80,6 +81,14 @@ public class ProposalServiceImpl implements ProposalService {
 		result.setTonnes(proposal.getTonnes());
 		return result;
 
+	}
+
+	@Override
+	public List<ProposalDetailsDTO> listAllProposal(boolean incluirExpiradas) {
+		if (incluirExpiradas)
+			return proposalRespository.findAll().stream().map(this::fill).toList();
+
+		return proposalRespository.findAllPropostasValidas().stream().map(this::fill).toList();
 	}
 
 }

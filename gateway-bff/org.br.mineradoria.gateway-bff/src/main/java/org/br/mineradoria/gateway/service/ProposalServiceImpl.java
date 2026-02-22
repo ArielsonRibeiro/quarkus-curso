@@ -1,6 +1,7 @@
 package org.br.mineradoria.gateway.service;
 
 import org.br.mineradoria.gateway.client.ProposalClient;
+import org.br.mineradoria.gateway.client.exception.PropostaNaoLocalizadaException;
 import org.br.mineradoria.gateway.dto.ProposalDetailsDTO;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -15,8 +16,12 @@ public class ProposalServiceImpl implements ProposalService {
 	@RestClient
 	private ProposalClient proposalClient;
 	
-	public ProposalDetailsDTO getProposal(long id) {
+	public ProposalDetailsDTO getProposal(long id) throws PropostaNaoLocalizadaException {
 		return proposalClient.getProposal(id);
+	}
+	
+	public Response getAllProposal(boolean expiradas) {
+		return proposalClient.getAllProposal(expiradas);
 	}
 	
 	public Response deleteProposal(long id) {

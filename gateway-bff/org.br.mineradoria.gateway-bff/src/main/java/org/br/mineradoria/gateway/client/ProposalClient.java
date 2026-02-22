@@ -1,5 +1,7 @@
 package org.br.mineradoria.gateway.client;
 
+import org.br.mineradora.library.interceptor.CustomExceptionHandling;
+import org.br.mineradoria.gateway.client.exception.PropostaNaoLocalizadaException;
 import org.br.mineradoria.gateway.dto.ProposalDetailsDTO;
 import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
@@ -12,18 +14,25 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 
 @Path("/api/proposal")
 @RegisterRestClient
 @RegisterProvider(AccessTokenRequestReactiveFilter.class)
 @RegisterClientHeaders
+@CustomExceptionHandling
 @ApplicationScoped
 public interface ProposalClient {
  
 	@GET
 	@Path("/{id}")
-	public ProposalDetailsDTO getProposal(@PathParam("id") long id);
+	public ProposalDetailsDTO getProposal(@PathParam("id") long id)
+		throws PropostaNaoLocalizadaException;
+	
+	@GET
+	@Path("/all")
+	public Response getAllProposal(@QueryParam("expiradas") boolean expiradas);
 	
 	@DELETE
 	@Path("/{id}")

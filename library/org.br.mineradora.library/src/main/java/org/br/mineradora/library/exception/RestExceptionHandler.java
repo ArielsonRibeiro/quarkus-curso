@@ -1,11 +1,11 @@
-package org.br.mineradoria.gateway.exception;
+package org.br.mineradora.library.exception;
 
-import org.br.mineradoria.gateway.dto.ErrorDefault;
+import org.br.mineradora.library.dto.ErrorDefault;
 
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 
-public class HandlingCustomException {
+public class RestExceptionHandler {
 	// TODO Melhoria implementar como interceptador para ficar generica
 
 	public static WebApplicationException throwException(int status, Exception e) {

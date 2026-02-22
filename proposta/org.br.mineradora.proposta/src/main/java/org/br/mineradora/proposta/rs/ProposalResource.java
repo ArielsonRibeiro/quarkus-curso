@@ -1,9 +1,12 @@
 package org.br.mineradora.proposta.rs;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.br.mineradora.library.exception.RestExceptionHandler;
 import org.br.mineradora.proposta.dto.ProposalDetailsDTO;
+import org.br.mineradora.proposta.exception.PropostaNaoLocalizadaException;
 import org.br.mineradora.proposta.service.ProposalService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -14,6 +17,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 
 @Path("/api/proposal")
@@ -31,7 +35,17 @@ public class ProposalResource {
 	@Path("/{id}")
 	@RolesAllowed({"user", "manager"})
 	public ProposalDetailsDTO getProposal(@PathParam("id") long id) {
-		return service.findFullProposal(id);
+		var p = service.findFullProposal(id);
+		if(p != null)
+			return p;
+		throw RestExceptionHandler.throwException(404, new PropostaNaoLocalizadaException("Proposta Não localizada"));
+	}
+	
+	@GET
+	@Path("/all")
+	@RolesAllowed({"user", "manager"})
+	public List<ProposalDetailsDTO> getAllProposal(@QueryParam("expiradas") boolean expiradas) {
+		return service.listAllProposal(expiradas);
 	}
 	
 	@DELETE

@@ -5,9 +5,9 @@ import java.util.logging.Logger;
 
 import javax.security.auth.login.LoginException;
 
+import org.br.mineradora.library.exception.RestExceptionHandler;
 import org.br.mineradoria.gateway.client.OAuthClient;
 import org.br.mineradoria.gateway.dto.TokenOAuthDTO;
-import org.br.mineradoria.gateway.exception.HandlingCustomException;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import jakarta.annotation.security.PermitAll;
@@ -36,10 +36,10 @@ public class AuthenticationResource {
 		try {
 			return oauth.login(username, password, grantType);
 		} catch (LoginException e) {
-			throw HandlingCustomException.throwException(401, e);
+			throw RestExceptionHandler.throwException(401, e);
 		} catch(Exception e) {
 			LOGGER.log(Level.WARNING, e.getMessage(), e);
-			throw HandlingCustomException.throwException(400, e);
+			throw RestExceptionHandler.throwException(400, e);
 		}
 	}
 }

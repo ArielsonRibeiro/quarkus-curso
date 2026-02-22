@@ -1,4 +1,4 @@
-package org.br.mineradoria.gateway.exception;
+package org.br.mineradora.library.exception;
 
 import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;

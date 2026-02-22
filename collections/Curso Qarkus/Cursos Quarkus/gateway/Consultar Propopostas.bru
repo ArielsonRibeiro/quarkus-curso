@@ -1,13 +1,17 @@
 meta {
-  name: Consultar Proposta
+  name: Consultar Propopostas
   type: http
-  seq: 5
+  seq: 8
 }
 
 get {
-  url: {{host_proposta}}/api/proposal/210
+  url: {{host_gateway}}/api/trade/all?expiradas=true
   body: none
   auth: bearer
+}
+
+params:query {
+  expiradas: true
 }
 
 auth:bearer {

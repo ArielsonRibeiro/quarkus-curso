@@ -1,10 +1,10 @@
-package org.br.mineradoria.gateway.interceptor;
+package org.br.mineradora.library.interceptor;
 
 import java.util.logging.Logger;
 
 import javax.security.auth.login.LoginException;
 
-import org.br.mineradoria.gateway.dto.ErrorDefault;
+import org.br.mineradora.library.dto.ErrorDefault;
 
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
@@ -23,12 +23,20 @@ public class CustomExceptionHandlingInterceptor {
 		try {
 			return ctx.proceed();
 		} catch(WebApplicationException e) {
-			// TODO Implementar um tratamento mais generico
 			Response resp = e.getResponse();
 			
 			ErrorDefault error = resp.readEntity(ErrorDefault.class);
+			boolean loginEx = false;
 			
-			if(error.getErrorDescription() != null)
+			for ( Class<?> exc : ctx.getMethod().getExceptionTypes()) {
+				if(exc.getSimpleName().equals(error.getError())) {
+					throw (Exception) exc.getConstructor(String.class).newInstance(error.getErrorDescription());
+				}
+				if(exc.getSimpleName().equals("LoginException"))
+					loginEx = true;
+			}
+			
+			if(loginEx && error.getErrorDescription() != null)
 				throw new LoginException(error.getErrorDescription());
 			LOGGER.warning("Error: "+ resp.readEntity(String.class));			
 			throw e;

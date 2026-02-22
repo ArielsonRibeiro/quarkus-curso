@@ -1,7 +1,9 @@
 package org.br.mineradoria.gateway.rs;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.br.mineradora.library.exception.RestExceptionHandler;
 import org.br.mineradoria.gateway.dto.ProposalDetailsDTO;
 import org.br.mineradoria.gateway.service.ProposalService;
 import org.eclipse.microprofile.jwt.JsonWebToken;
@@ -16,6 +18,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -37,7 +40,25 @@ public class ProposalResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	@WithSpan
 	public ProposalDetailsDTO getProposal(@PathParam("id") long id) {
-		return service.getProposal(id);
+		try {
+			return service.getProposal(id);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+			throw RestExceptionHandler.throwException(400, e);
+		}
+	}
+
+	@GET
+	@Path("/all")
+	@RolesAllowed({ "user", "manager" })
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllProposal(@QueryParam("expiradas") boolean expiradas) {
+		try {
+			return service.getAllProposal(expiradas);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+			throw RestExceptionHandler.throwException(400, e);
+		}
 	}
 
 	@DELETE
@@ -58,7 +79,12 @@ public class ProposalResource {
 	@RolesAllowed("proposal-customer")
 	@WithSpan
 	public Response createProposal(ProposalDetailsDTO proposal) {
-		return Response.status(service.createProposal(proposal).getStatus()).build();
+		try {
+			return service.createProposal(proposal);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+			throw RestExceptionHandler.throwException(400, e);
+		}
 	}
 
 }

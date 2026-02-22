@@ -23,6 +23,7 @@ services:
     hostname: br-mineradora-gateway
     ports:
       - "9003:8080"
+      - "8443:8443"
     volumes:
       # Formato: nome-do-volume:caminho-no-container
       - org_br_mineradora:/opt/variaveis:ro
