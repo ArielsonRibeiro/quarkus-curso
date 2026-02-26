@@ -18,6 +18,8 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 
 @Path("/api/proposal")
@@ -30,6 +32,9 @@ public class ProposalResource {
 	
 	@Inject
 	private ProposalService service;
+	
+	@Context
+    private HttpHeaders httpHeaders;
 	
 	@GET
 	@Path("/{id}")
@@ -45,6 +50,7 @@ public class ProposalResource {
 	@Path("/all")
 	@RolesAllowed({"user", "manager"})
 	public List<ProposalDetailsDTO> getAllProposal(@QueryParam("expiradas") boolean expiradas) {
+		LOGGER.info("Testando headers recebidos: " + httpHeaders.getRequestHeaders());
 		return service.listAllProposal(expiradas);
 	}
 	

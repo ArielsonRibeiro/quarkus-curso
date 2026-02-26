@@ -3,11 +3,13 @@ package org.br.mineradoria.gateway.client;
 import org.br.mineradora.library.interceptor.CustomExceptionHandling;
 import org.br.mineradoria.gateway.client.exception.PropostaNaoLocalizadaException;
 import org.br.mineradoria.gateway.dto.ProposalDetailsDTO;
+import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import io.quarkus.oidc.token.propagation.reactive.AccessTokenRequestReactiveFilter;
+import io.quarkus.rest.client.reactive.NotBody;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -32,7 +34,9 @@ public interface ProposalClient {
 	
 	@GET
 	@Path("/all")
-	public Response getAllProposal(@QueryParam("expiradas") boolean expiradas);
+	@ClientHeaderParam(name = "headerTest", value = "{headerTest}")
+	public Response getAllProposal(@QueryParam("expiradas") boolean expiradas
+			, @NotBody String headerTest);
 	
 	@DELETE
 	@Path("/{id}")

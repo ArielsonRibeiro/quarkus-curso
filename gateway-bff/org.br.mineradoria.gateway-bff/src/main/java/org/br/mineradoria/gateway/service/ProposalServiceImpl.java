@@ -21,7 +21,7 @@ public class ProposalServiceImpl implements ProposalService {
 	}
 	
 	public Response getAllProposal(boolean expiradas) {
-		return proposalClient.getAllProposal(expiradas);
+		return proposalClient.getAllProposal(expiradas, "Testando Headers");
 	}
 	
 	public Response deleteProposal(long id) {
