@@ -26,6 +26,7 @@
 			<groupId>jakarta.interceptor</groupId>
 			<artifactId>jakarta.interceptor-api</artifactId>
 			<version>2.2.0</version>
+			<scope>provided</scope>
 		</dependency>
 <!-- Source: https://mvnrepository.com/artifact/jakarta.json.bind/jakarta.json.bind-api -->
 	<dependency>
