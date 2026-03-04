@@ -1,17 +1,17 @@
 package org.br.mineradora.gateway.bo.service;
 
-import org.br.mineradora.gateway.bo.client.exception.PropostaNaoLocalizadaException;
-import org.br.mineradora.gateway.bo.dto.ProposalDetailsDTO;
+import java.util.List;
 
-import jakarta.ws.rs.core.Response;
+import org.br.mineradora.gateway.client.PropostaNaoLocalizadaException;
+import org.br.mineradora.gateway.client.proposta.to.ProposalDetailsDTO;
 
 public interface ProposalService {
 
 	public ProposalDetailsDTO getProposal(long id) throws PropostaNaoLocalizadaException;
 	
-	public Response getAllProposal(boolean expiradas);
+	public List<ProposalDetailsDTO> getAllProposal(boolean expiradas);
 	
-	public Response deleteProposal(long id);
+	public void deleteProposal(long id) throws PropostaNaoLocalizadaException;
 	
-	public Response createProposal(ProposalDetailsDTO proposal);
+	public Long createProposal(ProposalDetailsDTO proposal);
 }

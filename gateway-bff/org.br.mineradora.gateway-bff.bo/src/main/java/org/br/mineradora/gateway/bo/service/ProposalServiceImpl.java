@@ -1,13 +1,15 @@
 package org.br.mineradora.gateway.bo.service;
 
-import org.br.mineradora.gateway.bo.client.ProposalClient;
-import org.br.mineradora.gateway.bo.client.exception.PropostaNaoLocalizadaException;
-import org.br.mineradora.gateway.bo.dto.ProposalDetailsDTO;
+
+import java.util.List;
+
+import org.br.mineradora.gateway.client.ProposalClient;
+import org.br.mineradora.gateway.client.PropostaNaoLocalizadaException;
+import org.br.mineradora.gateway.client.proposta.to.ProposalDetailsDTO;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.core.Response;
 
 @ApplicationScoped
 public class ProposalServiceImpl implements ProposalService {
@@ -20,15 +22,15 @@ public class ProposalServiceImpl implements ProposalService {
 		return proposalClient.getProposal(id);
 	}
 	
-	public Response getAllProposal(boolean expiradas) {
-		return proposalClient.getAllProposal(expiradas, "Testando Headers");
+	public List<ProposalDetailsDTO> getAllProposal(boolean expiradas) {
+		return proposalClient.getAllProposal(expiradas);
 	}
 	
-	public Response deleteProposal(long id) {
-		return proposalClient.deleteProposal(id);
+	public void deleteProposal(long id) throws PropostaNaoLocalizadaException {
+		proposalClient.deleteProposal(id);
 	}
 	
-	public Response createProposal(ProposalDetailsDTO proposal) {
+	public Long createProposal(ProposalDetailsDTO proposal) {
 		return proposalClient.createProposal(proposal);
 	}
 

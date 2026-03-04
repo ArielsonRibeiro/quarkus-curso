@@ -1,4 +1,4 @@
-package org.br.mineradora.gateway.bo.client;
+package org.br.mineradora.gateway.client;
 
 import org.eclipse.microprofile.rest.client.ext.ClientHeadersFactory;
 

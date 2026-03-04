@@ -1,8 +1,8 @@
-package org.br.mineradora.gateway.bo.client;
+package org.br.mineradora.gateway.client;
 
 import javax.security.auth.login.LoginException;
 
-import org.br.mineradora.gateway.bo.dto.TokenOAuthDTO;
+import org.br.mineradora.gateway.client.auth.dto.TokenOAuthDTO;
 import org.br.mineradora.library.interceptor.CustomExceptionHandling;
 import org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;

@@ -1,4 +1,4 @@
-package org.br.mineradora.gateway.bo.client.exception;
+package org.br.mineradora.gateway.client;
 
 public class PropostaNaoLocalizadaException extends Exception {
 
@@ -21,6 +21,6 @@ public class PropostaNaoLocalizadaException extends Exception {
 
 	public PropostaNaoLocalizadaException(Throwable cause) {
 		super(cause);
-	}	
+	}
 
 }

@@ -75,6 +75,13 @@
 			<artifactId>rest-assured</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.br.mineradora</groupId>
+			<artifactId>org.br.mineradora.gateway-bff.client</artifactId>
+			<version>${global.project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

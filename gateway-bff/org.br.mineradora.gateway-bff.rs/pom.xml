@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-    		<groupId>org.br.mineradora</groupId>
-    		<artifactId>org.br.mineradora.gateway-bff.parent</artifactId>
+		<groupId>org.br.mineradora</groupId>
+		<artifactId>org.br.mineradora.gateway-bff.parent</artifactId>
 		<version>1.0.0.0</version>
 		<relativePath>../org.br.mineradora.gateway-bff</relativePath>
 	</parent>
@@ -13,9 +13,14 @@
 
 	<dependencies>
 		<dependency>
-		<groupId>org.br.mineradora</groupId>
-		<artifactId>org.br.mineradora.gateway-bff.bo</artifactId>
-		<version>1.0.0.0</version>
+			<groupId>org.br.mineradora</groupId>
+			<artifactId>org.br.mineradora.gateway-bff.bo</artifactId>
+			<version>${global.project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.br.mineradora</groupId>
+			<artifactId>org.br.mineradora.gateway-bff.client</artifactId>
+			<version>${global.project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -86,15 +91,15 @@
 	<build>
 		<plugins>
 			<plugin>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>quarkus-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>build-deployable-app</id>
-                        <phase>none</phase>
-                    </execution>
-                </executions>
-            </plugin>
+				<groupId>${quarkus.platform.group-id}</groupId>
+				<artifactId>quarkus-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>build-deployable-app</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

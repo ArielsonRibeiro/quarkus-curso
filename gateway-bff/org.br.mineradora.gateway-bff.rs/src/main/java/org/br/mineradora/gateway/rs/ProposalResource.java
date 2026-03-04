@@ -1,10 +1,12 @@
 package org.br.mineradora.gateway.rs;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.br.mineradora.gateway.bo.dto.ProposalDetailsDTO;
 import org.br.mineradora.gateway.bo.service.ProposalService;
+import org.br.mineradora.gateway.client.PropostaNaoLocalizadaException;
+import org.br.mineradora.gateway.client.proposta.to.ProposalDetailsDTO;
 import org.br.mineradora.library.exception.RestExceptionHandler;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
@@ -57,7 +59,7 @@ public class ProposalResource {
 	@Path("/all")
 	@RolesAllowed({ "user", "manager" })
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAllProposal(@QueryParam("expiradas") boolean expiradas) {
+	public List<ProposalDetailsDTO> getAllProposal(@QueryParam("expiradas") boolean expiradas) {
 		try {
 			return service.getAllProposal(expiradas);
 		} catch (Exception e) {
@@ -70,22 +72,26 @@ public class ProposalResource {
 	@Path("/{id}")
 	@RolesAllowed("manager")
 	@WithSpan
-	public Response deleteProposal(@PathParam("id") long id) {
-
-		int status = service.deleteProposal(id).getStatus();
-
-		if (status > 199 && status < 205) {
-			return Response.ok().build();
+	public void deleteProposal(@PathParam("id") long id) {
+		
+		try {
+			service.deleteProposal(id);
+		} catch (PropostaNaoLocalizadaException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+			throw RestExceptionHandler.throwException(404, e);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+			throw RestExceptionHandler.throwException(400, e);
 		}
-		return Response.status(status).build();
+
 	}
 
 	@POST
 	@RolesAllowed("proposal-customer")
 	@WithSpan
-	public Response createProposal(ProposalDetailsDTO proposal) {
+	public void createProposal(ProposalDetailsDTO proposal) {
 		try {
-			return service.createProposal(proposal);
+			service.createProposal(proposal);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw RestExceptionHandler.throwException(400, e);

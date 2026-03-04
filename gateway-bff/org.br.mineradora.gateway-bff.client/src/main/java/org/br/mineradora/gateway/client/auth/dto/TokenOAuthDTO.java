@@ -1,4 +1,4 @@
-package org.br.mineradora.gateway.bo.dto;
+package org.br.mineradora.gateway.client.auth.dto;
 
 import jakarta.json.bind.annotation.JsonbProperty;
 

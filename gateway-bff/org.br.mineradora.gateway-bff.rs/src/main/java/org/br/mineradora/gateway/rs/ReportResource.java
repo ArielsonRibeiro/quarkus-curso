@@ -3,8 +3,8 @@ package org.br.mineradora.gateway.rs;
 import java.util.Date;
 import java.util.List;
 
-import org.br.mineradora.gateway.bo.dto.OpportunityDTO;
 import org.br.mineradora.gateway.bo.service.ReportService;
+import org.br.mineradora.gateway.client.report.to.OpportunityDTO;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import io.quarkus.security.Authenticated;

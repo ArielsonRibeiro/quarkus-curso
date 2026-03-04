@@ -3,9 +3,9 @@ package org.br.mineradora.gateway.bo.service;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-import org.br.mineradora.gateway.bo.client.ReportClient;
-import org.br.mineradora.gateway.bo.dto.OpportunityDTO;
 import org.br.mineradora.gateway.bo.utils.CSVHelper;
+import org.br.mineradora.gateway.client.ReportClient;
+import org.br.mineradora.gateway.client.report.to.OpportunityDTO;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import jakarta.enterprise.context.ApplicationScoped;
