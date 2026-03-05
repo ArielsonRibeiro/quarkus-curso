@@ -1,22 +1,21 @@
 # Projeto de exemplo de utilização do quarkus framework
 
-Este projeto tem como base o curso de quarkus do professor X, sendo que a partir dele foram feitas mais exemplos de implementações
-incluindo a utilização de solução com multiplos projetos, geração de Rest Client a partir do swagger, implantação no docker
+Este projeto tem como base o curso de quarkus do professor Vinícius Pereira de Oliveira, sendo que a partir dele foram feitas mais exemplos de implementações incluindo a utilização de solução com multiplos projetos, geração de Rest Client a partir do swagger, implantação no docker
 com configuração de variaveis de ambiente em .env em um volume.
 
 ## Passo a passo para rodar o projeto
 
 ### Compilar o projeto org.br.mineradora.library
 ```shell script
-cd library\org.br.mineradora.library
+cd library/org.br.mineradora.library
 ```
 ```shell script
 mvn clean install
 ```
 
-### Compilar o projeto cotacao\org.br.mineradora.cotacao
+### Compilar o projeto org.br.mineradora.cotacao
 ```shell script
-cd cotacao\org.br.mineradora.cotacao
+cd cotacao/org.br.mineradora.cotacao
 ```
 ```shell script
 mvn clean install
@@ -26,65 +25,75 @@ Criando imagem docker
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/org.br.mineradora.cotacao-jvm .
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
-
-## Packaging and running the application
-
-The application can be packaged using:
-
+### Compilar o projeto org.br.mineradora.proposta
 ```shell script
-./mvnw package
+cd proposta/org.br.mineradora.proposta
+```
+```shell script
+mvn clean install
+```
+Criando imagem docker
+```shell script
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus/org.br.mineradora.proposta-jvm .
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
+### Compilar o projeto org.br.mineradora.report
 ```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+cd report/org.br.mineradora.report
+```
+```shell script
+mvn clean install
+```
+Criando imagem docker
+```shell script
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus/org.br.mineradora.report-jvm .
+```
+### Compilar o projeto org.br.mineradora.gateway-bff
+```shell script
+cd gateway-bff/org.br.mineradora.gateway-bff
+```
+```shell script
+mvn clean install
+```
+Criando imagem docker
+```shell script
+cd ../org.br.mineradora.gateway-bff.run
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
+Criando imagem docker
 ```shell script
-./mvnw package -Dnative
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus/org.br.mineradora.gateway-bff-jvm .
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+### Instação de dependências para funcionar
 
+Para o funcionamento pleno da aplicação será necessário instalar postgresql, kafka, jaeger e keycloack.
 ```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
+$ docker run --name postgres-container -e POSTGRES_PASSWORD=postgres -d 1234
 ```
 
-You can then execute your native executable with: `./target/org.br.mineradora.proposta-1.0.0-SNAPSHOT-runner`
+```shell script
+docker run -d --name jaeger -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 -p 14250:14250 -p 9411:9411 -p 4317:4317 -p 4318:4318 jaegertracing/all-in-one:latest
+```
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+```shell script
+cd config\kafka
+docker compose up -d
+```
 
-## Related Guides
+```shell script
+cd config\keycloak
+docker compose up -d
+```
 
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
+Feito isso criar um volume no docker com nome org_br_mineradora e adicionar a conteudo dentro da pasta config\variaveis_ambiente
 
-## Provided Code
+depois na pasta inicial do projeto rodar o comando 
 
-### Hibernate ORM
+```shell script
+cd config\keycloak
+docker compose up -d
+```
 
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+com isso será iniciado a aplicação inteira via docker, para acessar usar a porta 8443.
+Na pasta collections tem uma collection do Bruno que pode ser utilizada para testes.
