@@ -8,6 +8,7 @@ import org.br.mineradora.gateway.client.report.to.OpportunityDTO;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import io.quarkus.security.Authenticated;
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -18,6 +19,7 @@ import jakarta.ws.rs.core.Response;
 
 @Path("api/opportunity")
 @Authenticated
+@RunOnVirtualThread
 public class ReportResource {
 	
 	@Inject

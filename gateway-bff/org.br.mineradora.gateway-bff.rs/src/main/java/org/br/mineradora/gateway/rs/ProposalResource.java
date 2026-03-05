@@ -12,6 +12,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.security.Authenticated;
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.DELETE;
@@ -28,6 +29,7 @@ import jakarta.ws.rs.core.Response;
 
 @Path("/api/trade")
 @Authenticated
+@RunOnVirtualThread
 public class ProposalResource {
 
 	private final Logger LOGGER = Logger.getLogger(ProposalResource.class.getName());

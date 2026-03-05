@@ -10,6 +10,7 @@ import org.br.mineradora.gateway.client.auth.dto.TokenOAuthDTO;
 import org.br.mineradora.library.exception.RestExceptionHandler;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.FormParam;
@@ -20,6 +21,7 @@ import jakarta.ws.rs.core.MediaType;
 
 @Path("/api/v1/oauth")
 @PermitAll
+@RunOnVirtualThread
 public class AuthenticationResource {
 	
 	private final Logger LOGGER = Logger.getLogger(AuthenticationResource.class.getName());
