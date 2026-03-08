@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.br.mineradora.gateway.bo.service.ReportService;
 import org.br.mineradora.gateway.client.report.to.OpportunityDTO;
-import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import io.quarkus.security.Authenticated;
 import io.smallrye.common.annotation.RunOnVirtualThread;
@@ -22,8 +21,9 @@ import jakarta.ws.rs.core.Response;
 @RunOnVirtualThread
 public class ReportResource {
 	
-	@Inject
-	private JsonWebToken jsonWebToken;
+	// Para obter informação do token oauth que chega
+//	@Inject
+//	private JsonWebToken jsonWebToken;
 	
 	@Inject
 	private ReportService service;

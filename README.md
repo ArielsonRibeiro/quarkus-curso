@@ -1,7 +1,6 @@
 # Projeto de exemplo de utilização do quarkus framework
 
-Este projeto tem como base o curso de quarkus do professor Vinícius Pereira de Oliveira, sendo que a partir dele foram feitas mais exemplos de implementações incluindo a utilização de solução com multiplos projetos, geração de Rest Client a partir do swagger, implantação no docker
-com configuração de variaveis de ambiente em .env em um volume.
+Este projeto tem como base o curso de quarkus do professor Vinícius Pereira de Oliveira, sendo que a partir dele foram feitas mais exemplos de implementações incluindo a utilização de solução com multiplos projetos, geração de Rest Client a partir do swagger, implantação no docker com configuração de variaveis de ambiente em .env em um volume.
 
 ## Passo a passo para rodar o projeto
 
@@ -92,6 +91,12 @@ depois na pasta inicial do projeto rodar o comando
 
 ```shell script
 cd config\keycloak
+docker compose up -d
+```
+
+com as dependências instaladas, ir na raiz do projeto e executar
+
+```shell script
 docker compose up -d
 ```
 

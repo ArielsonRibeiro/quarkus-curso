@@ -2,7 +2,6 @@ package org.br.mineradora.cotacao.service;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.br.mineradora.cotacao.client.CurrencyPriceClient;
@@ -41,8 +40,10 @@ public class QuotationService {
 		try {
 			CurrencyPriceDTO currentPriceInfo = proxy.getPriceByPair(PAIR_USD_BRL);
 			if (updatePrice(currentPriceInfo)) {
-				QuotationDTO quotation = QuotationDTO.builder()
-						.currencyPrice(new BigDecimal(currentPriceInfo.getUsdbrl().getBid())).date(new Date()).build();
+				
+				QuotationDTO quotation = new QuotationDTO();
+				quotation.setCurrencyPrice(new BigDecimal(currentPriceInfo.getUsdbrl().getBid()));
+				quotation.setDate(new Date());
 				kafka.sendQuotationEvent(quotation);
 	
 			}

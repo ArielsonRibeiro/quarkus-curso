@@ -8,7 +8,6 @@ import org.br.mineradora.gateway.bo.service.ProposalService;
 import org.br.mineradora.gateway.client.PropostaNaoLocalizadaException;
 import org.br.mineradora.gateway.client.proposta.to.ProposalDetailsDTO;
 import org.br.mineradora.library.exception.RestExceptionHandler;
-import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.security.Authenticated;
@@ -25,7 +24,6 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
 @Path("/api/trade")
 @Authenticated
@@ -34,8 +32,9 @@ public class ProposalResource {
 
 	private final Logger LOGGER = Logger.getLogger(ProposalResource.class.getName());
 
-	@Inject
-	private JsonWebToken jsonWebToken;
+	// Para obter informação do token oauth que chega
+//	@Inject
+//	private JsonWebToken jsonWebToken;
 
 	@Inject
 	private ProposalService service;
@@ -91,9 +90,9 @@ public class ProposalResource {
 	@POST
 	@RolesAllowed("proposal-customer")
 	@WithSpan
-	public void createProposal(ProposalDetailsDTO proposal) {
+	public Long createProposal(ProposalDetailsDTO proposal) {
 		try {
-			service.createProposal(proposal);
+			return service.createProposal(proposal);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			throw RestExceptionHandler.throwException(400, e);

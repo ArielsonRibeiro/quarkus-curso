@@ -15,7 +15,9 @@ public class CSVHelper {
 	
 	public static ByteArrayInputStream OpportunitiesToCSV(List<OpportunityDTO> opportunities) {
 		
-		final CSVFormat format = CSVFormat.DEFAULT.withHeader("ID Proposta", "Cliente", "Preçoa por Tonelada", "Melhor Cotação de Moeda");
+		final CSVFormat format = CSVFormat.DEFAULT.builder()
+				.setHeader("ID Proposta", "Cliente", "Preçoa por Tonelada"
+						, "Melhor Cotação de Moeda").get();
 		
 		try (
 			ByteArrayOutputStream out = new ByteArrayOutputStream();

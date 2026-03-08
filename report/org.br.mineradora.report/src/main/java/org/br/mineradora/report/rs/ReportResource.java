@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.br.mineradora.report.dto.OpportunityDTO;
 import org.br.mineradora.report.service.OpportunityService;
-import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import io.quarkus.security.Authenticated;
 import jakarta.annotation.security.RolesAllowed;
@@ -19,10 +18,7 @@ import jakarta.ws.rs.core.Response;
 @Path("api/opportunity")
 @Authenticated
 public class ReportResource {
-	
-	@Inject
-	private JsonWebToken jsonWebToken;
-	
+		
 	@Inject
 	private OpportunityService service;
 
