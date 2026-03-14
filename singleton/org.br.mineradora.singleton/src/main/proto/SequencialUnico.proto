@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.br.mineradora.singleton.grpc.identificador";
+option java_outer_classname = "SingletonGrpc";
+
+import "google/protobuf/empty.proto";
+
+service SingletonServiceGrpc {
+    rpc gerarIdentificador (google.protobuf.Empty) returns (Identificador) {}
+}
+
+
+message Identificador {
+  int64 sequencial = 1;
+  string uuid = 2;
+  int64 data = 3;
+}

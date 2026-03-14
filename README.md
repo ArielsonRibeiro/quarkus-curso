@@ -47,6 +47,19 @@ Criando imagem docker
 ```shell script
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/org.br.mineradora.report-jvm .
 ```
+
+### Compilar o projeto org.br.mineradora.singleton
+```shell script
+cd singleton/org.br.mineradora.singleton
+```
+```shell script
+mvn clean install
+```
+Criando imagem docker
+```shell script
+docker build -f src/main/docker/Dockerfile.jvm -t quarkus/org.br.mineradora.singleton-jvm .
+```
+
 ### Compilar o projeto org.br.mineradora.gateway-bff
 ```shell script
 cd gateway-bff/org.br.mineradora.gateway-bff

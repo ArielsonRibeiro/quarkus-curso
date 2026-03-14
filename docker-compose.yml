@@ -8,6 +8,11 @@ name: br-mineradora
 services:
   br-mineradora-cotacao:
     image: quarkus/org.br.mineradora.cotacao-jvm
+  br-mineradora-sinlgeton:
+    image: quarkus/org.br.mineradora.singleton-jvm
+    hostname: br-mineradora-singleton
+    ports:
+      - "9090:9090"
   br-mineradora-proposal:
     image: quarkus/org.br.mineradora.proposta-jvm
     hostname: br-mineradora-proposal

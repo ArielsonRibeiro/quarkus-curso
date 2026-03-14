@@ -1,0 +1,1 @@
+ mvn install:install-file -Dfile=target/"org.br.mineradora.singleton-1.0.0.0-client.jar" -DgroupId="org.br.mineradora" -DartifactId="org.br.mineradora.singleton"  -Dversion="1.0.0.0" -Dclassifier="client"  -Dpackaging="jar"

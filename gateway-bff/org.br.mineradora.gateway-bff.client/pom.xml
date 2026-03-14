@@ -35,6 +35,17 @@
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-rest-client-oidc-token-propagation</artifactId>
 		</dependency>
+		
+		<dependency>
+		    <groupId>io.quarkus</groupId>
+		    <artifactId>quarkus-grpc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.br.mineradora</groupId>
+			<artifactId>org.br.mineradora.singleton</artifactId>
+			<version>1.0.0.0</version>
+			<classifier>client</classifier>
+		</dependency>
 
 		<dependency>
 			<groupId>org.br.mineradora.library</groupId>
