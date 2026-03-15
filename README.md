@@ -12,6 +12,13 @@ cd library/org.br.mineradora.library
 mvn clean install
 ```
 
+## para compilar os projetos em nativos usando windows para nativo linux
+```shell script
+./mvnw clean install -Pnative "-Dquarkus.native.container-build=true"
+```
+
+
+
 ### Compilar o projeto org.br.mineradora.cotacao
 ```shell script
 cd cotacao/org.br.mineradora.cotacao
@@ -22,6 +29,10 @@ mvn clean install
 Criando imagem docker
 ```shell script
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/org.br.mineradora.cotacao-jvm .
+```
+Criando imagem docker com nativo
+```shell script
+docker build -f src/main/docker/Dockerfile.native -t quarkus/org.br.mineradora.cotacao .
 ```
 
 ### Compilar o projeto org.br.mineradora.proposta
@@ -60,6 +71,11 @@ Criando imagem docker
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/org.br.mineradora.singleton-jvm .
 ```
 
+Criando imagem docker com nativo
+```shell script
+docker build -f src/main/docker/Dockerfile.native -t quarkus/org.br.mineradora.singleton .
+```
+
 ### Compilar o projeto org.br.mineradora.gateway-bff
 ```shell script
 cd gateway-bff/org.br.mineradora.gateway-bff
@@ -75,6 +91,10 @@ cd ../org.br.mineradora.gateway-bff.run
 Criando imagem docker
 ```shell script
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/org.br.mineradora.gateway-bff-jvm .
+```
+Criando imagem docker com nativo
+```shell script
+docker build -f src/main/docker/Dockerfile.native -t quarkus/org.br.mineradora.gateway-bff .
 ```
 
 ### Instação de dependências para funcionar

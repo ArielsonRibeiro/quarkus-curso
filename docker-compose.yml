@@ -7,12 +7,20 @@
 name: br-mineradora
 services:
   br-mineradora-cotacao:
-    image: quarkus/org.br.mineradora.cotacao-jvm
+    image: quarkus/org.br.mineradora.cotacao
+    #image: quarkus/org.br.mineradora.cotacao-jvm
   br-mineradora-sinlgeton:
-    image: quarkus/org.br.mineradora.singleton-jvm
+    image: quarkus/org.br.mineradora.singleton
+    #image: quarkus/org.br.mineradora.singleton-jvm
     hostname: br-mineradora-singleton
     ports:
       - "9090:9090"
+    deploy:
+      resources:
+        limits:
+        # Define o máximo de CPU e Memória
+          cpus: '0.50' # 50% de um núcleo
+          memory: 256M
   br-mineradora-proposal:
     image: quarkus/org.br.mineradora.proposta-jvm
     hostname: br-mineradora-proposal
@@ -24,7 +32,8 @@ services:
     ports:
       - "9002:8080"
   br-mineradora-bff:
-    image: quarkus/org.br.mineradora.gateway-bff-jvm
+    image: quarkus/org.br.mineradora.gateway-bff
+    #image: quarkus/org.br.mineradora.gateway-bff-jvm
     hostname: br-mineradora-gateway
     ports:
       - "9003:8080"
@@ -33,10 +42,17 @@ services:
       # Formato: nome-do-volume:caminho-no-container
       - org_br_mineradora:/opt/variaveis:ro
     #Copia o arquivo com as variaveis de ambiente para a pasta deployments
-    entrypoint: ["sh", "-c", "cp /opt/variaveis/gateway/.env /deployments/ && /opt/jboss/container/java/run/run-java.sh"]
+    entrypoint: ["sh", "-c", "cp /opt/variaveis/gateway/.env /work/ && ./application -Dquarkus.http.host=0.0.0.0"]
+    #entrypoint: ["sh", "-c", "cp /opt/variaveis/gateway/.env /deployments/ && /opt/jboss/container/java/run/run-java.sh"] usarcom jvm
     depends_on:
       - br-mineradora-report
       - br-mineradora-proposal
+    deploy:
+      resources:
+        limits:
+        # Define o máximo de CPU e Memória
+          cpus: '0.50' # 50% de um núcleo
+          memory: 512M
 
 volumes:
   org_br_mineradora:
