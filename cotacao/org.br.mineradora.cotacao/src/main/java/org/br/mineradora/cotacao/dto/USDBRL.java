@@ -1,7 +1,10 @@
 package org.br.mineradora.cotacao.dto;
 
-public class USDBRL {
+import java.io.Serializable;
 
+public class USDBRL implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String code;
 	private String codein;
 	private String name;

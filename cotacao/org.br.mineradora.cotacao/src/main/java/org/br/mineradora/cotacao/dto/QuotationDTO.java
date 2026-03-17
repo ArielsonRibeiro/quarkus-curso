@@ -1,9 +1,16 @@
 package org.br.mineradora.cotacao.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class QuotationDTO {
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+
+@RegisterForReflection
+public class QuotationDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Date date;
 

@@ -27,7 +27,8 @@ services:
     ports:
       - "9001:8080"
   br-mineradora-report:
-    image: quarkus/org.br.mineradora.report-jvm
+    image: quarkus/org.br.mineradora.report
+    #image: quarkus/org.br.mineradora.report-jvm
     hostname: br-mineradora-report
     ports:
       - "9002:8080"

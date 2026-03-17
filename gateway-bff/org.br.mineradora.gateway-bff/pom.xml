@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.br.mineradora</groupId>
 	<artifactId>org.br.mineradora.gateway-bff.parent</artifactId>
-	<version>1.0.0.0</version>
+	<version>1.0.0.1</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -18,7 +18,7 @@
 		<quarkus.platform.version>3.31.3</quarkus.platform.version>
 		<skipITs>true</skipITs>
 		<surefire-plugin.version>3.5.4</surefire-plugin.version>
-		<global.project.version>1.0.0.0</global.project.version>
+		<global.project.version>1.0.0.1</global.project.version>
 	</properties>
 
 
@@ -57,10 +57,17 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>${quarkus.platform.group-id}</groupId>
-					<artifactId>quarkus-maven-plugin</artifactId>
-					<version>${quarkus.platform.version}</version>
-					<extensions>true</extensions>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>versions-maven-plugin</artifactId>
+					<version>2.7</version>
+					<goals>
+						<goal>set</goal>
+					</goals>
+					<configuration>
+						<newVersion>${global.project.version}</newVersion>
+						<allowDowngrade>true</allowDowngrade>
+						<generateBackupPoms>false</generateBackupPoms>
+					</configuration>
 				</plugin>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
