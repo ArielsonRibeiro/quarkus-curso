@@ -1,0 +1,206 @@
+{
+  "openapi" : "3.1.0",
+  "components" : {
+    "schemas" : {
+      "ProposalDetailsDTO" : {
+        "type" : "object",
+        "properties" : {
+          "proposalId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "customer" : {
+            "type" : "string"
+          },
+          "priceTonne" : {
+            "type" : "number"
+          },
+          "tonnes" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "country" : {
+            "type" : "string"
+          },
+          "proposalValidDays" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PropostaNaoLocalizadaException" : {
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "openIdConnect",
+        "openIdConnectUrl" : "http://192.168.56.1:8081/realms/quarkus/.well-known/openid-configuration",
+        "description" : "Authentication"
+      }
+    }
+  },
+  "paths" : {
+    "/api/proposal" : {
+      "post" : {
+        "operationId" : "createProposal",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ProposalDetailsDTO"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int64"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Create Proposal",
+        "tags" : [ "Proposal Resource" ],
+        "security" : [ {
+          "SecurityScheme" : [ "proposal-customer" ]
+        } ]
+      }
+    },
+    "/api/proposal/all" : {
+      "get" : {
+        "operationId" : "getAllProposal",
+        "parameters" : [ {
+          "name" : "expiradas",
+          "in" : "query",
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProposalDetailsDTO"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "summary" : "Get All Proposal",
+        "tags" : [ "Proposal Resource" ],
+        "security" : [ {
+          "SecurityScheme" : [ "user", "manager" ]
+        } ]
+      }
+    },
+    "/api/proposal/{id}" : {
+      "get" : {
+        "operationId" : "getProposal",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProposalDetailsDTO"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PropostaNaoLocalizadaException"
+                }
+              }
+            },
+            "x-type" : {
+              "faultId" : "PropostaNaoLocalizadaException"
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "summary" : "Get Proposal",
+        "tags" : [ "Proposal Resource" ],
+        "security" : [ {
+          "SecurityScheme" : [ "user", "manager" ]
+        } ]
+      },
+      "delete" : {
+        "operationId" : "deleteProposal",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "summary" : "Delete Proposal",
+        "tags" : [ "Proposal Resource" ],
+        "security" : [ {
+          "SecurityScheme" : [ "manager" ]
+        } ]
+      }
+    }
+  },
+  "info" : {
+    "title" : "proposta API",
+    "version" : "1.0.0-SNAPSHOT"
+  }
+}

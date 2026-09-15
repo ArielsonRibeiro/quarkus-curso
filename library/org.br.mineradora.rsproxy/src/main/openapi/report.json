@@ -1,0 +1,91 @@
+{
+  "openapi" : "3.1.0",
+  "components" : {
+    "schemas" : {
+      "OpportunityDTO" : {
+        "type" : "object",
+        "properties" : {
+          "proposalId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "customer" : {
+            "type" : "string"
+          },
+          "priceTonne" : {
+            "type" : "number"
+          },
+          "lastDollarQuotation" : {
+            "type" : "number"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "SecurityScheme" : {
+        "type" : "openIdConnect",
+        "openIdConnectUrl" : "http://192.168.56.1:8081/realms/quarkus/.well-known/openid-configuration",
+        "description" : "Authentication"
+      }
+    }
+  },
+  "paths" : {
+    "/api/opportunity/report" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/octet-stream" : { }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "summary" : "Generate Report",
+        "tags" : [ "Report Resource" ],
+        "security" : [ {
+          "SecurityScheme" : [ "manager" ]
+        } ]
+      }
+    },
+    "/api/opportunity/report/data" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/OpportunityDTO"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Not Authorized"
+          },
+          "403" : {
+            "description" : "Not Allowed"
+          }
+        },
+        "summary" : "Get Report",
+        "tags" : [ "Report Resource" ],
+        "security" : [ {
+          "SecurityScheme" : [ "manager" ]
+        } ]
+      }
+    }
+  },
+  "info" : {
+    "title" : "report  API",
+    "version" : "1.0.0-SNAPSHOT"
+  }
+}

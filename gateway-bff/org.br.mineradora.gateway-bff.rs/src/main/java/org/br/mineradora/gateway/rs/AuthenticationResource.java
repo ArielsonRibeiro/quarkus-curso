@@ -5,9 +5,9 @@ import java.util.logging.Logger;
 
 import javax.security.auth.login.LoginException;
 
-import org.br.mineradora.gateway.client.OAuthClient;
-import org.br.mineradora.gateway.client.auth.dto.TokenOAuthDTO;
 import org.br.mineradora.library.exception.RestExceptionHandler;
+import org.br.mineradora.rsproxy.OAuthClient;
+import org.br.mineradora.rsproxy.auth.dto.TokenOAuthDTO;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.smallrye.common.annotation.RunOnVirtualThread;

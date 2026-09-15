@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.br.mineradora.gateway.bo.service.ReportService;
-import org.br.mineradora.gateway.client.report.to.OpportunityDTO;
+import org.br.mineradora.rsproxy.report.to.OpportunityDTO;
 
 import io.quarkus.security.Authenticated;
 import io.smallrye.common.annotation.RunOnVirtualThread;

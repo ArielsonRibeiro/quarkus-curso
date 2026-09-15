@@ -1,0 +1,8 @@
+README.md
+pom.xml
+src/gen/java/org/acme/RestApplication.java
+src/gen/java/org/acme/RestResourceRoot.java
+src/gen/java/org/acme/api/ApiApi.java
+src/gen/java/org/acme/api/HelloApi.java
+src/gen/java/org/acme/model/ProposalDetailsDTO.java
+src/main/openapi/openapi.yaml

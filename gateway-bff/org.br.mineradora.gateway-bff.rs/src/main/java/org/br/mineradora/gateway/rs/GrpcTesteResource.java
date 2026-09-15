@@ -1,7 +1,7 @@
 package org.br.mineradora.gateway.rs;
 
 import org.br.mineradora.gateway.bo.service.GrpcTeste;
-import org.br.mineradora.gateway.client.auth.dto.IdentificadoDTO;
+import org.br.mineradora.rsproxy.auth.dto.IdentificadoDTO;
 
 import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.annotation.security.PermitAll;

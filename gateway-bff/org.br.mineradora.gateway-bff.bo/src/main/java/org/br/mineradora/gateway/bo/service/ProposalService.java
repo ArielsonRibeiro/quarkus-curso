@@ -2,8 +2,9 @@ package org.br.mineradora.gateway.bo.service;
 
 import java.util.List;
 
-import org.br.mineradora.gateway.client.PropostaNaoLocalizadaException;
-import org.br.mineradora.gateway.client.proposta.to.ProposalDetailsDTO;
+import org.br.mineradora.rsproxy.PropostaNaoLocalizadaException;
+import org.br.mineradora.rsproxy.proposta.to.ProposalDetailsDTO;
+
 
 public interface ProposalService {
 

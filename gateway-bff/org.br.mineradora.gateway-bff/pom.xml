@@ -29,7 +29,6 @@
 	<!--
 	https://stackoverflow.com/questions/78088326/quarkus-multi-module-maven-project-with-integration-tests-problems-with-includi-->
 	<modules>
-		<module>../org.br.mineradora.gateway-bff.client</module>
 		<module>../org.br.mineradora.gateway-bff.bo</module>
 		<module>../org.br.mineradora.gateway-bff.rs</module>
 		<module>../org.br.mineradora.gateway-bff.run</module>
@@ -48,6 +47,22 @@
 				<groupId>io.quarkiverse.openapi.generator</groupId>
 				<artifactId>quarkus-openapi-generator</artifactId>
 				<version>2.14.0-lts</version>
+			</dependency>
+			<dependency>
+				<groupId>org.br.mineradora.library</groupId>
+				<artifactId>org.br.mineradora.library</artifactId>
+				<version>1.0.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.br.mineradora</groupId>
+				<artifactId>org.br.mineradora.rsproxy</artifactId>
+				<version>1.0.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.br.mineradora</groupId>
+				<artifactId>org.br.mineradora.singleton</artifactId>
+				<version>1.0.0.0</version>
+				<classifier>client</classifier>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

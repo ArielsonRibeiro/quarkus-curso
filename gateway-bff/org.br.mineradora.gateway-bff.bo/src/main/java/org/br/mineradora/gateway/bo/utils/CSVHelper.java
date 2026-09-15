@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-import org.br.mineradora.gateway.client.report.to.OpportunityDTO;
+import org.br.mineradora.rsproxy.report.to.OpportunityDTO;
 
 public class CSVHelper {
 

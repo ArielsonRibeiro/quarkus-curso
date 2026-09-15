@@ -62,7 +62,6 @@
 		<dependency>
 			<groupId>org.br.mineradora.library</groupId>
 			<artifactId>org.br.mineradora.library</artifactId>
-			<version>1.0.0.0</version>
 		</dependency>
 
 		<dependency>
@@ -79,8 +78,7 @@
 		
 		<dependency>
 			<groupId>org.br.mineradora</groupId>
-			<artifactId>org.br.mineradora.gateway-bff.client</artifactId>
-			<version>${global.project.version}</version>
+			<artifactId>org.br.mineradora.rsproxy</artifactId>
 		</dependency>
 	</dependencies>
 

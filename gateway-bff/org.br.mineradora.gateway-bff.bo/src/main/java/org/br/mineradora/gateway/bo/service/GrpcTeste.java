@@ -1,7 +1,8 @@
 package org.br.mineradora.gateway.bo.service;
 
-import org.br.mineradora.gateway.client.auth.dto.IdentificadoDTO;
-import org.br.mineradora.gateway.client.grpc.IdentificadorClient;
+
+import org.br.mineradora.rsproxy.auth.dto.IdentificadoDTO;
+import org.br.mineradora.rsproxy.grpc.IdentificadorClient;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

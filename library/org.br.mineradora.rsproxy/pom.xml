@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.br.mineradora</groupId>
+	<artifactId>org.br.mineradora.rsproxy</artifactId>
+	<version>1.0.0.0</version>
+	<properties>
+		<maven.compiler.release>21</maven.compiler.release>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+        <quarkus.platform.version>3.31.2</quarkus.platform.version>
+	</properties>
+	
+	    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-arc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-rest-jsonb</artifactId>
+		</dependency>
+		<!--dependência que realizar a conversão dos objetos dos client-->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-rest-client-jsonb</artifactId>
+		</dependency>
+
+		<!-- Keycloak -->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-oidc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-rest-client-oidc-token-propagation</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>io.quarkus</groupId>
+		    <artifactId>quarkus-grpc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.br.mineradora</groupId>
+			<artifactId>org.br.mineradora.singleton</artifactId>
+			<version>1.0.0.0</version>
+			<classifier>client</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>org.br.mineradora.library</groupId>
+			<artifactId>org.br.mineradora.library</artifactId>
+			<version>1.0.0.0</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${project.basedir}/generated-sources</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>7.20.0</version>
+				<configuration>
+					<output>${project.basedir}/generated-sources</output>
+					<addCompileSourceRoot>true</addCompileSourceRoot>
+					<generatorName>java</generatorName>
+					<generateModelTests>false</generateModelTests>
+					<generateApiTests>false</generateApiTests>
+					<generateApiDocumentation>false</generateApiDocumentation>
+					<skipValidateSpec>true</skipValidateSpec>
+					<configOptions>
+						<sourceFolder>src</sourceFolder>
+						<dateLibrary>legacy</dateLibrary>
+						<useBeanValidation>false</useBeanValidation>
+						<useOneOfInterfaces>true</useOneOfInterfaces>
+						<library>microprofile</library>
+						<microprofileRestClientVersion>3.0</microprofileRestClientVersion>
+						<serializationLibrary>jsonb</serializationLibrary>
+						<serializableModel>true</serializableModel>
+						<openApiNullable>false</openApiNullable>
+						<performBeanValidation>true</performBeanValidation>
+						<useRuntimeException>true</useRuntimeException>
+						<hideGenerationTimestamp>true</hideGenerationTimestamp>
+						<useJakartaEe>true</useJakartaEe>
+					</configOptions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>proposta</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<inputSpec>
+								${project.basedir}/src/main/openapi/proposta.json</inputSpec>
+							<apiPackage>
+								org.br.mineradora.rsproxy.api</apiPackage>
+							<modelPackage>
+								org.br.mineradora.rsproxy.proposta.to</modelPackage>
+							<invokerPackage>
+								org.br.mineradora.rsproxy.proposta.impl</invokerPackage>
+							<!--<modelNameSuffix>DTO</modelNameSuffix>-->
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>report</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<inputSpec>
+								${project.basedir}/src/main/openapi/report.json</inputSpec>
+							<apiPackage>
+								org.br.mineradora.rsproxy.api</apiPackage>
+							<modelPackage>
+								org.br.mineradora.rsproxy.report.to</modelPackage>
+							<invokerPackage>
+								org.br.mineradora.rsproxy.report.impl</invokerPackage>
+							<!--<modelNameSuffix>DTO</modelNameSuffix>-->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+						<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>adjust</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<delete includeemptydirs="true" failonerror="false">
+									<fileset dir="${project.basedir}/generated-sources">
+										<include name="*" />
+										<include name="docs/" />
+										<include name=".openapi-generator/" />
+										<include name="**/ApiExceptionMapper.java" />
+										<include name="**/ApiException.java" />
+									</fileset>
+								</delete>
+								<replaceregexp>
+									<regexp
+										pattern="(public class [^\{]+ Serializable \{)(\R)  " />
+									<substitution expression="\1\2\2  private static final long serialVersionUID = 1L;\2  " />
+									<fileset
+										dir="${project.basedir}/generated-sources/src"
+										includes="**/*.java" />
+								</replaceregexp>
+								<replaceregexp flags="g">
+									<regexp
+										pattern="(\R).*RegisterRestClient.*\R" />
+									<substitution expression="\1" />
+									<fileset
+										dir="${project.basedir}/generated-sources/src"
+										includes="**/*Api.java" />
+								</replaceregexp>
+								<replaceregexp flags="g">
+									<regexp
+										pattern="(\R).*RegisterProvider.*\R" />
+									<substitution expression="\1" />
+									<fileset
+										dir="${project.basedir}/generated-sources/src"
+										includes="**/*Api.java" />
+								</replaceregexp>
+								<replaceregexp flags="g">
+									<regexp
+										pattern="(\R).*microprofile.*\R" />
+									<substitution expression="\1" />
+									<fileset
+										dir="${project.basedir}/generated-sources/src"
+										includes="**/*Api.java" />
+								</replaceregexp>
+								<replaceregexp byline="true">
+									<regexp
+										pattern="throws ApiException," />
+									<substitution
+										expression="throws Exception," />
+									<fileset
+										dir="${project.basedir}/generated-sources/src"
+										includes="**/*Api.java" />
+								</replaceregexp>
+
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+	            <groupId>com.diffplug.spotless</groupId>
+	            <artifactId>spotless-maven-plugin</artifactId>
+	            <version>3.1.0</version>
+	            <executions>
+	                <execution>
+	                    <goals>
+	                        <goal>apply</goal>
+	                    </goals>
+	                    <phase>generate-sources</phase>
+	                </execution>
+	            </executions>
+	            <configuration>
+	            	<java>
+			    		<includes>
+			        		<include>generated-sources/src/**/*.java</include>
+			   			</includes>
+			   			<removeUnusedImports>
+			   				<engine>google-java-format</engine>
+			   			</removeUnusedImports>
+			   			<importOrder>
+			   				<order>java,javax,jakarta,,br,,\#</order>
+			   			</importOrder>
+					</java>
+	            	<ratchetFrom>HEAD</ratchetFrom>
+	            </configuration>
+	        </plugin>
+
+			<plugin>
+				<groupId>${quarkus.platform.group-id}</groupId>
+				<artifactId>quarkus-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>build-deployable-app</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+
+
+		</plugins>
+	</build>
+
+</project>

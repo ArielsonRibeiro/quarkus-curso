@@ -5,9 +5,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.br.mineradora.gateway.bo.service.ProposalService;
-import org.br.mineradora.gateway.client.PropostaNaoLocalizadaException;
-import org.br.mineradora.gateway.client.proposta.to.ProposalDetailsDTO;
 import org.br.mineradora.library.exception.RestExceptionHandler;
+import org.br.mineradora.rsproxy.PropostaNaoLocalizadaException;
+import org.br.mineradora.rsproxy.proposta.to.ProposalDetailsDTO;
 
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import io.quarkus.security.Authenticated;
